@@ -5,7 +5,12 @@ from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 class MyTransformer(VideoTransformerBase):
     def transform(self, frame):
         # Apply transformations to the frame (e.g., image processing)
-        # and return the transformed frame
+        transformed_frame = frame.to_ndarray(format="bgr24")
+        
+        # Display the transformed frame
+        st.image(transformed_frame, channels="BGR")
+        
+        # Return the original frame
         return frame
 
 
@@ -17,11 +22,6 @@ def main():
         video_transformer_factory=MyTransformer,
         async_transform=True,
     )
-    
-    if webrtc_ctx.video_transformer:
-        # Display the transformed video frame
-        transformed_frame = webrtc_ctx.video_transformer.transformed_frame.to_ndarray()
-        st.image(transformed_frame, channels="BGR")
 
 
 if __name__ == "__main__":
