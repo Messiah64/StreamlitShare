@@ -20,7 +20,8 @@ def main():
     
     if webrtc_ctx.video_transformer:
         # Display the transformed video frame
-        st.video(webrtc_ctx.video_transformer)
+        transformed_frame = webrtc_ctx.video_transformer.transformed_frame.to_ndarray()
+        st.image(transformed_frame, channels="BGR")
 
 
 if __name__ == "__main__":
